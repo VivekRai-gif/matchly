@@ -61,12 +61,11 @@ It does not just rank candidates.
 It audits the AI itself.
 
 ---
-
+/*
 ## Getting Started
 
 Clone the repo:
-
-git clone https://github.com/yourusername/scoutify-ai.git  
+git clone https://github.com/VivekRai-gif/scoutify-ai.git  
 cd scoutify-ai  
 
 Install dependencies:
@@ -78,7 +77,7 @@ Run the app:
 streamlit run app.py  
 
 ---
-
+*/
 ## Vision
 
 To build the ethical intelligence layer for the future of recruitment.
