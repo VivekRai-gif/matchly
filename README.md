@@ -59,9 +59,9 @@ Scoutify focuses on:
 
 It does not just rank candidates.  
 It audits the AI itself.
-
+<!--
 ---
-/*
+
 ## Getting Started
 
 Clone the repo:
@@ -75,13 +75,11 @@ pip install -r requirements.txt
 Run the app:
 
 streamlit run app.py  
-
+-->
 ---
-*/
+
 ## Vision
 
 To build the ethical intelligence layer for the future of recruitment.
-
----
 
 Team Zygo
