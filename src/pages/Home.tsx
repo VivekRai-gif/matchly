@@ -13,11 +13,11 @@ export const Home = () => {
       <div id="home">
         <ModernHero />
       </div>
+      <FeaturesShowcase />
       <ServicesSection />
       <WorkSection />
       <ProcessSection />
       <AboutSection />
-      <FeaturesShowcase />
       <Testimonials />
       <ContactSection />
     </main>

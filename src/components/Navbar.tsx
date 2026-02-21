@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const menuItems = [
     { label: 'Home', href: '#home' },
@@ -19,6 +21,11 @@ export const Navbar = () => {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setIsOpen(false);
     }
+  };
+
+  const goToAIFeatures = () => {
+    navigate('/features/ai-features');
+    setIsOpen(false);
   };
 
   return (
@@ -56,15 +63,27 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <motion.button
-            onClick={() => scrollToSection('#contact')}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="hidden md:block px-6 py-2.5 bg-gradient-to-r from-primary-10 to-primary-20 hover:from-primary-20 hover:to-primary-30 text-white font-bold rounded-lg smooth-transition hover:scale-105 hover:shadow-lg hover:shadow-primary-10/30"
-          >
-            Contact
-          </motion.button>
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <motion.button
+              onClick={goToAIFeatures}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-lg smooth-transition hover:scale-105 hover:shadow-lg hover:shadow-purple-600/30 flex items-center gap-2"
+            >
+              <Sparkles className="w-4 h-4" />
+              AI Features
+            </motion.button>
+            <motion.button
+              onClick={() => scrollToSection('#contact')}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className="px-6 py-2.5 bg-gradient-to-r from-primary-10 to-primary-20 hover:from-primary-20 hover:to-primary-30 text-white font-bold rounded-lg smooth-transition hover:scale-105 hover:shadow-lg hover:shadow-primary-10/30"
+            >
+              Contact
+            </motion.button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -94,8 +113,15 @@ export const Navbar = () => {
                 </button>
               ))}
               <button 
+                onClick={goToAIFeatures}
+                className="mt-2 px-6 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-lg smooth-transition text-center flex items-center justify-center gap-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                AI Features
+              </button>
+              <button 
                 onClick={() => scrollToSection('#contact')}
-                className="mt-2 px-6 py-2.5 bg-gradient-to-r from-primary-10 to-primary-20 hover:from-primary-20 hover:to-primary-30 text-white font-bold rounded-lg smooth-transition text-center"
+                className="px-6 py-2.5 bg-gradient-to-r from-primary-10 to-primary-20 hover:from-primary-20 hover:to-primary-30 text-white font-bold rounded-lg smooth-transition text-center"
               >
                 Contact
               </button>
