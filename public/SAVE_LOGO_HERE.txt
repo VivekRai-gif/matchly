@@ -1,0 +1,5 @@
+Save your matchly logo image as: matchly-logo.png
+
+The logo image you shared should be saved in this folder (public/) with the filename: matchly-logo.png
+
+Once saved, the logo will automatically appear in the navigation bar and footer.
