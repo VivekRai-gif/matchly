@@ -6,6 +6,7 @@ from bias_detector import BiasDetector
 from transparent_matcher import TransparentMatcher
 from privacy_handler import PrivacyHandler
 import os
+import requests
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
@@ -396,6 +397,107 @@ def minimal_data_extraction():
         return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
 
 
+# ==================== CAMPAIGN WEBHOOK PROXY ====================
+
+@app.route('/api/campaign/start', methods=['POST'])
+def start_campaign():
+    """Proxy endpoint to trigger n8n webhook for email campaigns"""
+    try:
+        # Get campaign data from request
+        campaign_data = request.get_json() or {}
+        
+        # Build comprehensive payload for n8n workflow
+        from datetime import datetime
+        payload = {
+            'action': 'start_campaign',
+            'timestamp': campaign_data.get('timestamp', datetime.utcnow().isoformat()),
+            'source': 'scoutify-ai',
+            'campaign_type': campaign_data.get('campaign_type', 'email_automation'),
+            'campaign_name': campaign_data.get('campaign_name', 'Default Email Campaign'),
+            'email_config': {
+                'template_id': campaign_data.get('template_id', 'default_template'),
+                'subject': campaign_data.get('subject', 'You have a new opportunity!'),
+                'sender_name': campaign_data.get('sender_name', 'Scoutify AI'),
+                'sender_email': campaign_data.get('sender_email', 'noreply@scoutify.ai'),
+                'personalization_enabled': campaign_data.get('personalization_enabled', True)
+            },
+            'recipients': campaign_data.get('recipients', []),
+            'scheduling': {
+                'send_immediately': campaign_data.get('send_immediately', True),
+                'scheduled_time': campaign_data.get('scheduled_time', None),
+                'timezone': campaign_data.get('timezone', 'UTC')
+            },
+            'tracking': {
+                'track_opens': True,
+                'track_clicks': True,
+                'track_replies': True
+            },
+            'metadata': {
+                'user_id': campaign_data.get('user_id'),
+                'job_id': campaign_data.get('job_id'),
+                'batch_id': campaign_data.get('batch_id')
+            }
+        }
+        
+        # Call n8n webhook
+        webhook_url = 'https://zyndhaickathon.app.n8n.cloud/webhook-test/361b5ca0-b557-4197-a6a8-84673a7ff1a1'
+        
+        print(f"📧 Triggering campaign webhook")
+        print(f"🔗 URL: {webhook_url}")
+        print(f"📦 Payload: {payload}")
+        
+        response = requests.post(
+            webhook_url,
+            json=payload,
+            headers={'Content-Type': 'application/json'},
+            timeout=30
+        )
+        
+        print(f"✅ Webhook response status: {response.status_code}")
+        print(f"📄 Response body: {response.text[:500]}")
+        
+        if response.status_code in [200, 201, 202]:
+            # Try to parse JSON response, fallback to empty dict if not JSON
+            try:
+                webhook_data = response.json() if response.text else {}
+            except ValueError:
+                webhook_data = {'raw_response': response.text}
+            
+            return jsonify({
+                'success': True,
+                'message': 'Campaign started successfully',
+                'webhook_response': webhook_data
+            }), 200
+        else:
+            error_msg = f'Webhook returned status {response.status_code}'
+            if response.status_code == 404:
+                error_msg = 'Webhook not found (404). Please verify: 1) n8n workflow is active, 2) webhook path is correct, 3) workflow is deployed'
+            
+            print(f"❌ Error: {error_msg}")
+            return jsonify({
+                'success': False,
+                'error': error_msg,
+                'webhook_url': webhook_url,
+                'response_body': response.text[:500]
+            }), 500
+            
+    except requests.exceptions.Timeout:
+        return jsonify({
+            'success': False,
+            'error': 'Webhook request timed out'
+        }), 504
+    except requests.exceptions.RequestException as e:
+        return jsonify({
+            'success': False,
+            'error': f'Failed to reach webhook: {str(e)}'
+        }), 502
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Server error: {str(e)}'
+        }), 500
+
+
 # ==================== END NEW ENDPOINTS ====================
 
 if __name__ == '__main__':
@@ -406,6 +508,8 @@ if __name__ == '__main__':
     print("   - GET  /api/health")
     print("   - POST /api/analyze-ats")
     print("   - GET  /api/supported-formats")
+    print("\n   === Email Campaign Automation ===")
+    print("   - POST /api/campaign/start")
     print("\n   === 1️⃣ Verifiable Skill Credentials ===")
     print("   - POST /api/skills/extract")
     print("   - POST /api/skills/verify")

@@ -1,10 +1,120 @@
-import { motion } from 'framer-motion';
-import { Mail, Send, Calendar, Zap, BarChart, Clock, ArrowLeft, CheckCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Send, Calendar, Zap, BarChart, Clock, ArrowLeft, CheckCircle, X, Upload } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import { useState } from 'react';
 
 export const EmailCampaigns = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  
+  // Form states
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [jobDescription, setJobDescription] = useState('');
+  const [senderEmail, setSenderEmail] = useState('');
+  const [receiverEmail, setReceiverEmail] = useState('');
+
+  const handleStartCampaign = async () => {
+    if (!resumeFile || !jobDescription || !senderEmail || !receiverEmail) {
+      setMessage({ type: 'error', text: 'Please fill in all fields' });
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage(null);
+    
+    try {
+      // Use backend proxy to avoid CORS issues
+      const apiUrl = 'http://localhost:5000/api/campaign/start';
+      
+      // Read resume file as base64
+      const reader = new FileReader();
+      const resumeBase64 = await new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(resumeFile);
+      });
+      
+      // Comprehensive campaign data to activate workflow
+      const payload = {
+        action: 'start_campaign',
+        timestamp: new Date().toISOString(),
+        source: 'scoutify-ai',
+        campaign_type: 'email_automation',
+        campaign_name: 'Recruitment Campaign - ' + new Date().toLocaleDateString(),
+        template_id: 'candidate_outreach',
+        subject: 'Exciting Opportunity - We Found Your Profile!',
+        sender_name: 'Recruiter',
+        sender_email: senderEmail,
+        receiver_email: receiverEmail,
+        personalization_enabled: true,
+        send_immediately: true,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        resume: {
+          filename: resumeFile.name,
+          content: resumeBase64,
+          type: resumeFile.type
+        },
+        job_description: jobDescription,
+        recipients: [
+          {
+            email: receiverEmail,
+            name: 'Candidate',
+            job_title: 'Position',
+            personalization_data: {
+              job_description: jobDescription
+            }
+          }
+        ]
+      };
+
+      console.log('Sending campaign request...', payload);
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      console.log('Response:', data);
+      
+      if (data.success) {
+        setMessage({ type: 'success', text: 'Campaign started successfully! ✓' });
+        setShowModal(false);
+        // Reset form
+        setResumeFile(null);
+        setJobDescription('');
+        setSenderEmail('');
+        setReceiverEmail('');
+      } else {
+        // More detailed error message
+        let errorText = data.error || 'Failed to start campaign.';
+        if (data.webhook_url) {
+          errorText += ` (Webhook: ${data.webhook_url})`;
+        }
+        console.error('Campaign error details:', data);
+        setMessage({ type: 'error', text: errorText });
+      }
+    } catch (error: any) {
+      console.error('Error starting campaign:', error);
+      
+      let errorMessage = 'Error connecting to campaign service.';
+      if (error.message?.includes('Failed to fetch')) {
+        errorMessage = 'Cannot connect to backend server. Please ensure the server is running on port 5000.';
+      } else if (error.message) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
+      setMessage({ type: 'error', text: errorMessage });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const features = [
     {
       icon: <Mail className="w-6 h-6" />,
@@ -87,8 +197,18 @@ export const EmailCampaigns = () => {
               schedule interviews, and keep candidates engaged throughout the hiring process.
             </p>
 
+            {message && (
+              <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-500/20 border border-green-500/30 text-green-300' : 'bg-red-500/20 border border-red-500/30 text-red-300'}`}>
+                {message.text}
+              </div>
+            )}
+
             <div className="flex flex-wrap gap-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-warning-10 to-warning-20 hover:from-warning-20 hover:to-warning-10 rounded-full font-semibold smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-warning-10/50">
+              <button 
+                onClick={() => setShowModal(true)}
+                disabled={isLoading}
+                className="px-8 py-4 bg-gradient-to-r from-warning-10 to-warning-20 hover:from-warning-20 hover:to-warning-10 rounded-full font-semibold smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-warning-10/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
                 Start Campaign
               </button>
               <button className="px-8 py-4 glass hover:glass-strong hover:border-warning-10/30 rounded-full font-semibold smooth-transition hover:scale-105">
@@ -150,6 +270,127 @@ export const EmailCampaigns = () => {
           </div>
         </div>
       </div>
+
+      {/* Campaign Form Modal */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+            
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative glass-strong rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-6 right-6 text-gray-400 hover:text-white smooth-transition"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <h2 className="text-3xl font-bold mb-6 text-gradient">Start Email Campaign</h2>
+              
+              <div className="space-y-6">
+                {/* Resume Upload */}
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">
+                    Upload Resume (PDF) *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => setResumeFile(e.target.files?.[0] || null)}
+                      className="hidden"
+                      id="resume-upload"
+                    />
+                    <label
+                      htmlFor="resume-upload"
+                      className="flex items-center gap-3 px-4 py-3 glass hover:glass-strong border border-warning-10/30 rounded-xl cursor-pointer smooth-transition"
+                    >
+                      <Upload className="w-5 h-5 text-warning-20" />
+                      <span className="text-gray-300">
+                        {resumeFile ? resumeFile.name : 'Choose PDF file...'}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Job Description */}
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">
+                    Job Description *
+                  </label>
+                  <textarea
+                    value={jobDescription}
+                    onChange={(e) => setJobDescription(e.target.value)}
+                    placeholder="Enter the job description..."
+                    rows={4}
+                    className="w-full px-4 py-3 glass border border-warning-10/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-warning-20 smooth-transition resize-none"
+                  />
+                </div>
+
+                {/* Sender Email */}
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">
+                    Sender Email *
+                  </label>
+                  <input
+                    type="email"
+                    value={senderEmail}
+                    onChange={(e) => setSenderEmail(e.target.value)}
+                    placeholder="sender@company.com"
+                    className="w-full px-4 py-3 glass border border-warning-10/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-warning-20 smooth-transition"
+                  />
+                </div>
+
+                {/* Receiver Email */}
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">
+                    Receiver Email *
+                  </label>
+                  <input
+                    type="email"
+                    value={receiverEmail}
+                    onChange={(e) => setReceiverEmail(e.target.value)}
+                    placeholder="candidate@example.com"
+                    className="w-full px-4 py-3 glass border border-warning-10/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-warning-20 smooth-transition"
+                  />
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-4 pt-4">
+                  <button
+                    onClick={handleStartCampaign}
+                    disabled={isLoading || !resumeFile || !jobDescription || !senderEmail || !receiverEmail}
+                    className="flex-1 px-6 py-3 bg-gradient-to-r from-warning-10 to-warning-20 hover:from-warning-20 hover:to-warning-10 rounded-xl font-semibold smooth-transition hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    {isLoading ? 'Sending...' : 'Send Campaign'}
+                  </button>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    disabled={isLoading}
+                    className="px-6 py-3 glass hover:glass-strong border border-warning-10/30 rounded-xl font-semibold smooth-transition hover:scale-105 disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
