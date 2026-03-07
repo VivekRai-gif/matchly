@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, FileSearch, Users, FileCheck, Brain, Shield, Zap, Target } from 'lucide-react';
+import { Mail, Users, FileCheck, Brain } from 'lucide-react';
 
 export const ServicesSection = () => {
   const services = [
@@ -30,34 +30,6 @@ export const ServicesSection = () => {
       title: 'Candidate Management',
       description: 'Complete dashboard for managing candidates, tracking pipeline stages, and collaborating with your hiring team.',
       features: ['Pipeline tracking', 'Team collaboration', 'Analytics'],
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      iconColor: 'from-primary-20 to-primary-40',
-      title: 'Bias-Free Hiring',
-      description: 'Our ethical AI eliminates unconscious bias, ensuring fair and equal opportunity for all candidates in the hiring process.',
-      features: ['Blind screening', 'Fair evaluation', 'Diversity insights'],
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      iconColor: 'from-warning-10 to-warning-30',
-      title: 'Instant Insights',
-      description: 'Real-time analytics and reporting give you instant visibility into your hiring metrics and candidate quality.',
-      features: ['Live dashboards', 'Custom reports', 'Predictive analytics'],
-    },
-    {
-      icon: <Target className="w-8 h-8" />,
-      iconColor: 'from-danger-10 to-danger-20',
-      title: 'Precision Ranking',
-      description: 'Advanced ranking algorithms score and rank candidates based on multiple factors for confident hiring decisions.',
-      features: ['Multi-factor scoring', 'Custom weights', 'Smart filtering'],
-    },
-    {
-      icon: <FileSearch className="w-8 h-8" />,
-      iconColor: 'from-info-20 to-info-30',
-      title: 'Resume Intelligence',
-      description: 'Deep resume analysis extracting skills, experience, education, and more with AI-powered parsing and understanding.',
-      features: ['Smart parsing', 'Skill extraction', 'Experience mapping'],
     },
   ];
 
@@ -136,19 +108,6 @@ export const ServicesSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
-        >
-          <button className="px-8 py-4 bg-gradient-to-r from-primary-10 to-primary-30 hover:from-primary-30 hover:to-primary-10 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-primary-10/50">
-            Explore All Services
-          </button>
-        </motion.div>
       </div>
     </section>
   );

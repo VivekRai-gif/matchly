@@ -2,7 +2,6 @@ import { motion, useScroll } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { ModernHero } from './components/ModernHero';
 import { ServicesSection } from './components/ServicesSection';
-import { WorkSection } from './components/WorkSection';
 import { ProcessSection } from './components/ProcessSection';
 import { AboutSection } from './components/AboutSection';
 import { FeaturesShowcase } from './components/FeaturesShowcase';
@@ -33,9 +32,6 @@ function App() {
         
         {/* Services Section */}
         <ServicesSection />
-        
-        {/* Work/Portfolio Section */}
-        <WorkSection />
         
         {/* Process Section */}
         <ProcessSection />

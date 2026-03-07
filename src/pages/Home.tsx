@@ -1,6 +1,5 @@
 import { ModernHero } from '../components/ModernHero';
 import { ServicesSection } from '../components/ServicesSection';
-import { WorkSection } from '../components/WorkSection';
 import { ProcessSection } from '../components/ProcessSection';
 import { AboutSection } from '../components/AboutSection';
 import { FeaturesShowcase } from '../components/FeaturesShowcase';
@@ -15,7 +14,6 @@ export const Home = () => {
       </div>
       <FeaturesShowcase />
       <ServicesSection />
-      <WorkSection />
       <ProcessSection />
       <AboutSection />
       <Testimonials />
