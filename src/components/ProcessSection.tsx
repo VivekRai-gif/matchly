@@ -6,13 +6,13 @@ export const ProcessSection = () => {
     {
       number: '01',
       icon: <Upload className="w-8 h-8" />,
-      title: 'Upload & Setup',
-      description: 'Upload your job description and requirements. Our AI instantly analyzes the role, required skills, and ideal candidate profile.',
+      title: 'Upload Resume & Job',
+      description: 'Upload your resume and paste the job description. Our AI instantly analyzes both to identify your strengths and match potential.',
       details: [
-        'Paste or upload JD',
-        'Define must-have skills',
-        'Set experience levels',
-        'Configure preferences',
+        'Upload your resume',
+        'Paste job description',
+        'AI extracts your skills',
+        'Identifies requirements',
       ],
       color: 'from-info-10 to-info-20',
     },
@@ -20,11 +20,11 @@ export const ProcessSection = () => {
       number: '02',
       icon: <Brain className="w-8 h-8" />,
       title: 'AI Analysis',
-      description: 'Our multi-agent AI system processes all resumes, running compatibility checks, ATS validation, and skill matching in seconds.',
+      description: 'Our multi-agent AI system analyzes your resume, running skill matching, gap identification, and bias detection in seconds.',
       details: [
-        'Resume parsing',
         'Skill extraction',
-        'ATS compatibility',
+        'Experience mapping',
+        'Job compatibility',
         'Semantic matching',
       ],
       color: 'from-primary-10 to-primary-30',
@@ -32,26 +32,26 @@ export const ProcessSection = () => {
     {
       number: '03',
       icon: <Users className="w-8 h-8" />,
-      title: 'Smart Ranking',
-      description: 'Candidates are ranked using advanced algorithms that consider skills, experience, education, and cultural fit.',
+      title: 'Get Match Score',
+      description: 'Receive your detailed match score showing exactly where you excel and which skills you need to strengthen.',
       details: [
-        'Multi-factor scoring',
-        'Bias-free evaluation',
-        'Percentage matching',
-        'Gap analysis',
+        'Match percentage',
+        'Matched skills list',
+        'Skill gap analysis',
+        'Improvement recommendations',
       ],
       color: 'from-success-10 to-success-20',
     },
     {
       number: '04',
       icon: <CheckCircle className="w-8 h-8" />,
-      title: 'Review & Hire',
-      description: 'Review ranked candidates, send automated emails, schedule interviews, and make confident hiring decisions with complete insights.',
+      title: 'Apply & Track',
+      description: 'Generate personalized application emails, verify job authenticity, and track your applications with complete insights.',
       details: [
-        'Shortlist management',
-        'Automated outreach',
-        'Interview scheduling',
-        'Analytics dashboard',
+        'Email generation',
+        'Job safety check',
+        'Application tracking',
+        'Progress dashboard',
       ],
       color: 'from-warning-10 to-warning-20',
     },
@@ -89,7 +89,7 @@ export const ProcessSection = () => {
             Simple Process, <span className="text-gradient">Powerful Results</span>
           </h2>
           <p className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-            From job posting to perfect hire in four intelligent steps
+            From resume upload to job application success in four intelligent steps
           </p>
         </motion.div>
 
@@ -188,7 +188,7 @@ export const ProcessSection = () => {
           className="text-center mt-20"
         >
           <button className="group px-8 py-4 bg-gradient-to-r from-success-10 to-success-20 hover:from-success-20 hover:to-success-10 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-success-10/50 flex items-center gap-2 mx-auto">
-            Start Your Hiring Journey
+            Start Your Career Journey
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 smooth-transition" />
           </button>
         </motion.div>

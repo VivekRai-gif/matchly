@@ -1,30 +1,65 @@
 """
 Verifiable Skill Credentials Module
-Uses Gemini AI to extract, verify, and score candidate skills
+
+Uses Gemini AI to extract, verify, and score candidate skills.
+Provides blockchain-ready skill verification and credential generation.
 """
 
-import google.generativeai as genai
-import json
 import hashlib
-from typing import Dict, List
+import json
+import logging
 from datetime import datetime
+from typing import Dict, List, Optional
+
+import google.generativeai as genai
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 
 class SkillVerifier:
-    """Verify and validate candidate skills using Gemini AI"""
+    """Verify and validate candidate skills using Gemini AI.
+    
+    Provides methods for skill extraction, verification, cross-validation,
+    and credential generation with cryptographic hashing.
+    """
     
     def __init__(self, gemini_api_key: str):
-        genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        """Initialize SkillVerifier with Gemini AI.
+        
+        Args:
+            gemini_api_key: Google Gemini API key for AI operations
+        """
+        try:
+            genai.configure(api_key=gemini_api_key)
+            self.model = genai.GenerativeModel('gemini-2.5-flash')
+            logger.info("SkillVerifier initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize SkillVerifier: {e}")
+            raise
     
     def extract_skills(self, resume_text: str) -> Dict:
-        """Extract skills from resume using Gemini AI"""
+        """Extract skills from resume using Gemini AI.
+        
+        Args:
+            resume_text: Raw text content of resume
+            
+        Returns:
+            Dictionary containing categorized skills and metadata
+            
+        Raises:
+            Exception: If skill extraction fails
+        """
         try:
+            # Limit resume text to prevent token overflow
+            max_chars = 4000
+            truncated_text = resume_text[:max_chars]
+            
             prompt = f"""Extract all technical and professional skills from this resume.
             Categorize them and provide details.
 
 RESUME:
-{resume_text[:4000]}
+{truncated_text}
 
 Return a JSON response with this exact structure:
 {{

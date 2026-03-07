@@ -80,7 +80,7 @@ export const Footer = () => {
           >
             <h3 className="text-white font-bold text-lg mb-4">Matchly</h3>
             <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-              Transform your hiring process with AI-powered intelligence. We help companies find the perfect candidates faster and more efficiently.
+              Transform your career journey with AI-powered intelligence. We help job seekers understand their strengths, bridge skill gaps, and find the perfect opportunities faster and more effectively.
             </p>
             <div className="space-y-2">
               <a 

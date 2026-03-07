@@ -17,13 +17,13 @@ export const FeaturesShowcase = () => {
       icon: <Mail className="w-10 h-10" />,
       iconColor: 'from-primary-600 to-primary-500',
       title: 'Automated Email Campaigns',
-      subtitle: 'Smart Communication at Scale',
-      description: 'Streamline your candidate communication with intelligent automation. Send personalized emails, schedule interviews, and keep candidates engaged throughout the hiring process.',
+      subtitle: 'Smart Application Communication',
+      description: 'Streamline your job applications with intelligent automation. Send personalized emails, follow up effectively, and stay engaged with employers throughout your application process.',
       benefits: [
         'Customizable email templates',
         'Automated follow-ups & reminders',
-        'Interview scheduling integration',
-        'Bulk actions with personalization',
+        'Interview thank-you automation',
+        'Bulk applications with personalization',
         'Real-time delivery tracking',
         'Response analytics dashboard',
       ],
@@ -52,9 +52,9 @@ export const FeaturesShowcase = () => {
       iconColor: 'from-blue-500 to-purple-500',
       title: 'Verifiable Skill Credentials',
       subtitle: 'AI-Powered Skill Verification',
-      description: 'Extract and verify candidate skills using advanced AI. Get evidence-based skill validation, cross-verification with job requirements, and blockchain-style credential hashing for trust and transparency.',
+      description: 'Extract and verify your skills using advanced AI. Get evidence-based skill validation, cross-verification with job requirements, and credential documentation for trust and credibility with employers.',
       benefits: [
-        'AI skill extraction from resumes',
+        'AI skill extraction from your resume',
         'Evidence-based verification',
         'Cross-verify against job needs',
         'Proficiency level assessment',
@@ -69,14 +69,14 @@ export const FeaturesShowcase = () => {
       iconColor: 'from-purple-500 to-pink-500',
       title: 'Bias Detection Algorithms',
       subtitle: 'Fair & Merit-Based Evaluation',
-      description: 'Remove unconscious bias from hiring with AI-powered fairness checks. Automatically mask personal attributes and ensure candidates are evaluated purely on skills, experience, and qualifications.',
+      description: 'Identify unconscious bias in job descriptions with AI-powered fairness checks. Ensure you\'re evaluated purely on skills, experience, and qualifications, not personal attributes.',
       benefits: [
-        'Automatic PII masking',
-        'Merit-only evaluation',
-        'Bias signal detection',
+        'Job description bias detection',
+        'Merit-only evaluation tracking',
+        'Bias signal identification',
         'Fairness score reporting',
-        'Demographic-blind screening',
-        'Equal opportunity compliance',
+        'Discrimination pattern alerts',
+        'Equal opportunity guidance',
       ],
       image: '🛡️',
       route: '/features/ai-features',
@@ -86,7 +86,7 @@ export const FeaturesShowcase = () => {
       iconColor: 'from-green-500 to-teal-500',
       title: 'Transparent Matching Process',
       subtitle: 'Explainable AI Decisions',
-      description: 'Get complete transparency in every hiring decision. Our AI provides detailed reasoning, component-wise score breakdowns, and human-readable explanations for all match recommendations.',
+      description: 'Get complete transparency in every match decision. Our AI provides detailed reasoning, component-wise score breakdowns, and human-readable explanations for all match recommendations.',
       benefits: [
         'Detailed match explanations',
         'Score component breakdown',
@@ -137,7 +137,7 @@ export const FeaturesShowcase = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight"
           >
-            Everything You Need to <span className="text-gradient">Hire Better</span>
+            Everything You Need to <span className="text-gradient">Land Your Dream Job</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ export const FeaturesShowcase = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-neutral-400 text-xl max-w-3xl mx-auto leading-relaxed"
           >
-            Comprehensive recruitment tools powered by AI to streamline your hiring workflow from start to finish
+            Comprehensive career tools powered by AI to streamline your job search from start to finish
           </motion.p>
         </motion.div>
 
@@ -290,13 +290,13 @@ export const FeaturesShowcase = () => {
         >
           <div className="card max-w-4xl mx-auto">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900">
-              Ready to Transform Your Hiring?
+              Ready to Accelerate Your Job Search?
             </h3>
             <p className="text-neutral-600 text-lg mb-8">
-              Join hundreds of companies using matchly to find the perfect candidates faster
+              Join thousands of job seekers using matchly to find the perfect opportunities faster
             </p>
             <button className="px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-primary text-lg">
-              Start Free Trial
+              Analyze Your Resume
             </button>
           </div>
         </motion.div>

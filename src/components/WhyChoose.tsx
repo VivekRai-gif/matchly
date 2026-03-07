@@ -7,25 +7,25 @@ export const WhyChoose = () => {
       icon: <GitBranch className="w-6 h-6" />,
       iconColor: 'from-primary-10 to-primary-20',
       title: 'Multi-Agent Architecture',
-      description: 'Independent AI agents collaborate to ensure balanced evaluation and eliminate single-point bias.',
+      description: 'Independent AI agents collaborate to ensure balanced career evaluation and eliminate single-point bias in your favor.',
     },
     {
       icon: <Target className="w-6 h-6" />,
       iconColor: 'from-success-10 to-success-20',
       title: 'Skill-First Evaluation',
-      description: 'We prioritize our clients\' specified skills, ensuring 100% skill match. No typos or fuzzy matching',
+      description: 'We prioritize your actual skills and achievements, ensuring accurate matching. No keyword gaming or fuzzy matching.',
     },
     {
       icon: <Scale className="w-6 h-6" />,
       iconColor: 'from-warning-10 to-warning-20',
       title: 'Bias-Aware Scoring',
-      description: 'Our bias detection AI analyzes the decision and scores in real-time, flagging potential discriminations and ensuring hiring decisions are unimpacted',
+      description: 'Our bias detection AI analyzes job descriptions in real-time, flagging potential discrimination and ensuring you\'re evaluated fairly.',
     },
     {
       icon: <Lock className="w-6 h-6" />,
       iconColor: 'from-info-10 to-info-20',
-      title: 'Privacy-Preserving Reviews',
-      description: 'We value user data. Hence, your candidate data stays with you. Your AI will tell you its decisions about filtered finalists and why it made the decision',
+      title: 'Privacy-Preserving Analysis',
+      description: 'We value your privacy. Your data stays secure with you. Our AI provides insights about your job readiness without compromising your information.',
     },
   ];
 
@@ -44,7 +44,7 @@ export const WhyChoose = () => {
             Why Choose <span className="text-gradient">matchly</span>?
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-            With us, the future is about systems with AI that's explainable, accountable, AI-powered specialists at its core
+            AI-powered career intelligence that's explainable, accountable, and designed to amplify your success
           </p>
         </motion.div>
 

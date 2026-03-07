@@ -5,36 +5,38 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
 export const RecruiterDashboard = () => {
+  // Note: Component name kept as RecruiterDashboard for backward compatibility
+  // But content is now job seeker focused (Application Tracker)
   const features = [
     {
       icon: <BarChart3 className="w-6 h-6" />,
-      title: 'Real-time Rankings',
-      description: 'View candidates ranked by AI with live scoring based on job requirements, skills match, and experience level.',
+      title: 'Application Tracking',
+      description: 'Track all your job applications with status updates, match scores, and application dates in one centralized dashboard.',
     },
     {
       icon: <Filter className="w-6 h-6" />,
-      title: 'Smart Filtering',
-      description: 'Filter candidates by skills, experience, location, education, and custom criteria with advanced search.',
+      title: 'Smart Job Search',
+      description: 'Filter jobs by skills match, location, salary range, and company with advanced search and recommendations.',
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: 'Shortlist Management',
-      description: 'Create, manage, and share multiple shortlists. Collaborate with team members on candidate selections.',
+      title: 'Opportunity Management',
+      description: 'Create, manage, and organize job opportunities. Save favorites and track your wishlist companies.',
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
-      title: 'Pipeline Tracking',
-      description: 'Track candidates through each stage of your hiring pipeline with drag-and-drop functionality.',
+      title: 'Progress Tracking',
+      description: 'Track your applications through each stage from submission to offer with visual pipeline view.',
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: 'Comparison View',
-      description: 'Side-by-side comparison of candidates to make informed decisions with detailed skill breakdowns.',
+      title: 'Job Comparison',
+      description: 'Side-by-side comparison of job opportunities to make informed decisions with match score breakdowns.',
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: 'Activity Timeline',
-      description: 'View complete candidate interaction history including emails, interviews, and status changes.',
+      description: 'View complete application history including submissions, follow-ups, interviews, and status changes.',
     },
   ];
 
@@ -60,24 +62,24 @@ export const RecruiterDashboard = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 glass border border-primary-10/30 rounded-full mb-6">
               <Users className="w-4 h-4 text-primary-20" />
-              <span className="text-primary-20 font-semibold text-sm">Recruiter Dashboard</span>
+              <span className="text-primary-20 font-semibold text-sm">Application Tracker</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Complete Hiring Pipeline <span className="text-gradient">Management</span>
+              Complete Job Search <span className="text-gradient">Management</span>
             </h1>
             
             <p className="text-xl text-gray-400 max-w-3xl leading-relaxed mb-8">
-              Unified dashboard for recruiters to view, rank, and manage candidates. Track shortlists, 
-              compare profiles, and make data-driven hiring decisions with powerful analytics and insights.
+              Unified dashboard for job seekers to track, manage, and optimize applications. Monitor progress, 
+              compare opportunities, and make data-driven career decisions with powerful analytics and insights.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <button className="px-8 py-4 bg-gradient-to-r from-primary-10 to-primary-30 hover:from-primary-30 hover:to-primary-10 rounded-full font-semibold smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-primary-10/50">
-                Start Free Trial
+                Start Tracking Applications
               </button>
               <button className="px-8 py-4 glass hover:glass-strong hover:border-primary-10/30 rounded-full font-semibold smooth-transition hover:scale-105">
-                Schedule Demo
+                See How It Works
               </button>
             </div>
           </motion.div>

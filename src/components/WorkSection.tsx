@@ -4,48 +4,48 @@ import { ArrowRight, TrendingUp, Users, Clock, CheckCircle } from 'lucide-react'
 export const WorkSection = () => {
   const projects = [
     {
-      company: 'TechCorp Global',
-      industry: 'Technology',
-      challenge: 'Reducing time-to-hire for 500+ engineering positions',
-      solution: 'Implemented AI-powered resume matching and automated screening',
+      company: 'Sarah M., Software Engineer',
+      industry: 'Technology Transition',
+      challenge: 'Transitioning from QA to Software Development role',
+      solution: 'Used matchly to identify transferable skills and bridge knowledge gaps',
       results: [
-        { metric: '70%', label: 'Faster Hiring' },
-        { metric: '500+', label: 'Positions Filled' },
-        { metric: '95%', label: 'Candidate Satisfaction' },
+        { metric: '85%', label: 'Match Score Achieved' },
+        { metric: '3', label: 'Interviews Landed' },
+        { metric: '2 weeks', label: 'Job Offer Received' },
       ],
       gradient: 'from-info-10 to-info-20',
     },
     {
-      company: 'FinanceHub Inc',
-      industry: 'Financial Services',
-      challenge: 'Eliminating bias in senior leadership recruitment',
-      solution: 'Deployed blind screening and bias-free evaluation system',
+      company: 'James K., Data Analyst',
+      industry: 'Career Reentry',
+      challenge: 'Returning to workforce after 2-year gap',
+      solution: 'Leveraged AI skill verification and personalized application emails',
       results: [
-        { metric: '85%', label: 'Bias Reduction' },
-        { metric: '40%', label: 'More Diverse Hires' },
-        { metric: '92%', label: 'Retention Rate' },
+        { metric: '92%', label: 'Profile Strength' },
+        { metric: '5', label: 'Job Offers' },
+        { metric: '30%', label: 'Salary Increase' },
       ],
       gradient: 'from-primary-10 to-primary-30',
     },
     {
-      company: 'HealthCare Plus',
-      industry: 'Healthcare',
-      challenge: 'Scaling recruitment for 200+ medical professionals',
-      solution: 'Automated outreach campaigns and intelligent candidate ranking',
+      company: 'Priya S., Product Manager',
+      industry: 'Industry Switch',
+      challenge: 'Moving from retail to tech product management',
+      solution: 'Used transparent matching to highlight transferable skills',
       results: [
-        { metric: '60%', label: 'Time Saved' },
-        { metric: '250+', label: 'Hires Made' },
-        { metric: '88%', label: 'Quality Match' },
+        { metric: '78%', label: 'Match Score' },
+        { metric: '8', label: 'Applications Sent' },
+        { metric: '3', label: 'Final Round Interviews' },
       ],
       gradient: 'from-success-10 to-success-20',
     },
   ];
 
   const stats = [
-    { icon: <Users className="w-6 h-6" />, value: '10,000+', label: 'Candidates Placed' },
-    { icon: <TrendingUp className="w-6 h-6" />, value: '85%', label: 'Faster Hiring' },
-    { icon: <Clock className="w-6 h-6" />, value: '24hrs', label: 'Average Response' },
-    { icon: <CheckCircle className="w-6 h-6" />, value: '96%', label: 'Client Satisfaction' },
+    { icon: <Users className="w-6 h-6" />, value: '50,000+', label: 'Job Seekers Helped' },
+    { icon: <TrendingUp className="w-6 h-6" />, value: '85%', label: 'Match Score Average' },
+    { icon: <Clock className="w-6 h-6" />, value: '<5min', label: 'Analysis Time' },
+    { icon: <CheckCircle className="w-6 h-6" />, value: '94%', label: 'User Satisfaction' },
   ];
 
   return (
@@ -81,10 +81,10 @@ export const WorkSection = () => {
             </span>
           </motion.div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
-            Real Results for <span className="text-gradient">Real Companies</span>
+            Real Results for <span className="text-gradient">Real Job Seekers</span>
           </h2>
           <p className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-            See how leading organizations transformed their hiring with Scoutify AI
+            See how job seekers transformed their careers with matchly AI
           </p>
         </motion.div>
 

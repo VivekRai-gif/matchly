@@ -1,8 +1,8 @@
 # Matchly - AI Career Intelligence Platform
 
-**🧠 Candidate-Focused AI Career Intelligence System**
+**🧠 Job Seeker-Focused AI Career Intelligence System**
 
-Matchly is a comprehensive candidate-focused AI career intelligence platform built using a multi-agent architecture to help job seekers understand their job readiness, identify skill gaps, and apply to opportunities more effectively.
+Matchly is a comprehensive job seeker-focused AI career intelligence platform built using a multi-agent architecture to help job seekers understand their job readiness, identify skill gaps, and apply to opportunities more effectively.
 
 ---
 
@@ -67,9 +67,9 @@ Generates personalized job application emails:
 
 ## 🚀 Unique Selling Proposition (USP)
 
-Matchly combines **multi-agent AI**, **skill-first hiring analysis**, **bias-reduced evaluation**, and **job authenticity detection** in a single candidate-focused platform.
+Matchly combines **multi-agent AI**, **skill-first career analysis**, **bias-reduced evaluation**, and **job authenticity detection** in a single job seeker-focused platform.
 
-Instead of simply filtering resumes, Matchly:
+Instead of waiting for recruiters to filter you out, Matchly:
 - **Analyzes** your qualifications with AI precision
 - **Explains** exactly where you match and what's missing
 - **Verifies** job posting authenticity to protect you
@@ -191,9 +191,9 @@ The frontend will run on `http://localhost:5173`
 
 ## 🔐 Privacy & Ethics
 
-- **Bias-free evaluation** - demographic data removed
-- **Transparent AI** - all decisions explained
-- **Candidate-first** - designed to help job seekers
+- **Bias-free evaluation** - demographic data removed for fair assessment
+- **Transparent AI** - all decisions explained in plain language
+- **Job seeker-first** - designed exclusively to empower job seekers
 - **No data storage** - privacy-preserving analysis
 - **Fair assessment** - skill-based matching only
 
@@ -201,12 +201,12 @@ The frontend will run on `http://localhost:5173`
 
 ## 🌟 Vision
 
-To become the **ethical intelligence layer** powering the future of recruitment by:
-- Empowering candidates with AI insights
-- Removing bias from hiring
-- Protecting job seekers from scams
-- Making job applications more effective
-- Democratizing access to career intelligence
+To become the **essential intelligence layer** empowering the future of job seeking by:
+- Empowering job seekers with AI-powered career insights
+- Leveling the playing field against biased hiring systems
+- Protecting job seekers from scams and fake opportunities
+- Making job applications more targeted and effective
+- Democratizing access to career intelligence for everyone
 
 ---
 

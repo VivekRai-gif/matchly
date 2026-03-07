@@ -46,9 +46,9 @@ export const CTASection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
         >
-          Ready to Hire
+          Ready to Land
           <br />
-          <span className="text-gradient glow-text">Without Bias?</span>
+          <span className="text-gradient glow-text">Your Dream Job?</span>
         </motion.h2>
 
         {/* Subheadline */}
@@ -59,8 +59,8 @@ export const CTASection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Transform your hiring process with multi-agent AI that's transparent,
-          fair, and built for the future of work.
+          Transform your job search with multi-agent AI that's transparent,
+          fair, and built for your career success.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -77,7 +77,7 @@ export const CTASection = () => {
             className="group relative px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full font-bold text-xl overflow-hidden shadow-2xl shadow-blue-500/50"
           >
             <span className="relative z-10 flex items-center gap-3">
-              Start Free Trial
+              Analyze Your Resume
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </span>
             <motion.div
@@ -93,7 +93,7 @@ export const CTASection = () => {
             whileTap={{ scale: 0.95 }}
             className="px-10 py-5 glass-strong rounded-full font-bold text-xl border-2 border-white/20 hover:border-blue-400/50 transition-all"
           >
-            Schedule Demo
+            Try It Free
           </motion.button>
         </motion.div>
 

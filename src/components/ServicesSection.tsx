@@ -11,7 +11,7 @@ export const ServicesSection = () => {
       icon: <Brain className="w-8 h-8" />,
       iconColor: 'from-primary-10 to-primary-30',
       title: 'Skill Match & Gap Analysis',
-      description: 'Advanced AI analyzes resumes and job descriptions to calculate match scores and identify skill gaps with unparalleled accuracy.',
+      description: 'Advanced AI analyzes your resume against job descriptions to calculate match scores and identify skill gaps, helping you focus on what matters.',
       features: ['Match scoring', 'Skill gap analysis', 'Transparent results'],
       modalType: 'match' as const,
     },
@@ -19,7 +19,7 @@ export const ServicesSection = () => {
       icon: <Mail className="w-8 h-8" />,
       iconColor: 'from-info-10 to-info-20',
       title: 'AI Email Crafting',
-      description: 'Generate personalized application emails tailored to specific jobs and companies with our intelligent email agent.',
+      description: 'Generate personalized application emails tailored to specific jobs and companies. Stand out with professionally crafted messages.',
       features: ['Personalized emails', 'Company-specific', 'Instant generation'],
       modalType: 'email' as const,
     },
@@ -27,7 +27,7 @@ export const ServicesSection = () => {
       icon: <FileCheck className="w-8 h-8" />,
       iconColor: 'from-success-10 to-success-20',
       title: 'Resume Intelligence',
-      description: 'Extract structured skills, experience, and qualifications from resumes using advanced natural language processing.',
+      description: 'Optimize your resume with AI-powered analysis. Extract skills, highlight strengths, and ensure your experience shines through.',
       features: ['Skill extraction', 'Experience parsing', 'Structured output'],
       modalType: 'resume' as const,
     },
@@ -35,7 +35,7 @@ export const ServicesSection = () => {
       icon: <Users className="w-8 h-8" />,
       iconColor: 'from-warning-10 to-warning-20',
       title: 'Job Authenticity Check',
-      description: 'Verify job postings for authenticity and detect suspicious listings to protect candidates from scams.',
+      description: 'Verify job postings for authenticity before applying. Detect scams and suspicious listings to protect your job search.',
       features: ['Scam detection', 'Safety verification', 'Risk assessment'],
       modalType: 'job-safety' as const,
     },
@@ -69,10 +69,10 @@ export const ServicesSection = () => {
             </span>
           </motion.div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
-            Comprehensive Hiring <span className="text-gradient">Solutions</span>
+            Your Complete Career <span className="text-gradient">Toolkit</span>
           </h2>
           <p className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-            Everything you need to transform your recruitment process with AI-powered intelligence
+            Everything you need to accelerate your job search with AI-powered career intelligence
           </p>
         </motion.div>
 

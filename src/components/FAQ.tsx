@@ -7,36 +7,36 @@ export const FAQ = () => {
 
   const faqs = [
     {
-      question: 'What services does Scoutify provide?',
-      answer: 'Scoutify offers a game of services, including web design, development, and digital marketing. We specialize in creating visually stunning and functional websites, developing custom web applications, and providing comprehensive digital marketing strategies to help businesses thrive online.',
+      question: 'What services does matchly provide?',
+      answer: 'matchly offers a comprehensive suite of AI-powered career services including resume analysis, job matching, skill gap identification, application email generation, and job authenticity verification. We help job seekers maximize their chances of landing their dream job.',
     },
     {
-      question: 'How can Scoutify help my business?',
-      answer: 'Scoutify can help your business by creating a strong online presence through professional web design, custom development solutions, and targeted digital marketing strategies that drive growth and engagement.',
+      question: 'How can matchly help me in my job search?',
+      answer: 'matchly provides intelligent career insights by analyzing your resume against job descriptions, identifying skill gaps, generating personalized application emails, and verifying job authenticity - all powered by advanced AI to accelerate your job search success.',
     },
     {
-      question: 'What industries does Scoutify work with?',
-      answer: 'We work with businesses across all industries including startups, SaaS companies, e-commerce, healthcare, finance, education, and more. Our solutions are tailored to meet the unique needs of each sector.',
+      question: 'What types of job seekers does matchly work with?',
+      answer: 'We work with job seekers across all industries and experience levels including recent graduates, career switchers, experienced professionals, and executives. Our AI adapts to your unique background and career goals.',
     },
     {
-      question: 'How long does it take to complete a project with Scoutify?',
-      answer: 'Project timelines vary based on scope and complexity. A typical website project takes 4-8 weeks, while more complex applications may take 2-4 months. We provide detailed timelines during our initial consultation.',
+      question: 'How long does it take to analyze my resume?',
+      answer: 'Resume analysis is instant! Our AI provides comprehensive insights including skill matching, gap analysis, and improvement suggestions within seconds. You can start applying to jobs with confidence immediately.',
     },
     {
-      question: 'Do you offer ongoing support and maintenance after the project is complete?',
-      answer: 'Yes! We offer comprehensive support and maintenance packages to ensure your website or application continues to perform optimally. This includes security updates, bug fixes, and feature enhancements.',
+      question: 'Is my personal information secure?',
+      answer: 'Yes! We take privacy seriously. Your resume and personal data are encrypted and protected. We never share your information with third parties, and you maintain full control over your data at all times.',
     },
     {
-      question: 'Can you work with existing design or development frameworks?',
-      answer: 'Absolutely! We are experienced in working with various frameworks and can integrate with your existing systems, or help you migrate to modern technologies for better performance.',
+      question: 'Can matchly work with different resume formats?',
+      answer: 'Absolutely! Our AI can analyze resumes in multiple formats including PDF, DOC, DOCX, and TXT. We extract and understand your experience regardless of format or template.',
     },
     {
-      question: 'How involved will I be in the project development process?',
-      answer: 'We believe in collaborative development. You will be involved in key milestones including discovery, design reviews, development checkpoints, and testing phases. We maintain transparent communication throughout.',
+      question: 'How accurate is the job matching?',
+      answer: 'Our multi-agent AI system provides highly accurate matching by analyzing skills, experience, qualifications, and job requirements. We provide transparent scoring with detailed explanations so you understand exactly why a job is a good fit.',
     },
     {
-      question: 'Can you help with website or app maintenance and updates?',
-      answer: 'Yes, we provide ongoing maintenance services including content updates, security patches, performance optimization, and feature additions to keep your digital products running smoothly.',
+      question: 'Do you offer ongoing career support?',
+      answer: 'Yes! Beyond one-time analysis, we provide continuous career intelligence including market insights, skill trend analysis, and personalized recommendations to help you stay competitive throughout your career journey.',
     },
   ];
 

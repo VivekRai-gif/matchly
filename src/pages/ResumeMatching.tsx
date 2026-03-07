@@ -24,7 +24,7 @@ export const ResumeMatching = () => {
     {
       icon: <Award className="w-6 h-6" />,
       title: 'Skill Gap Analysis',
-      description: 'Identify missing skills and experience gaps to make informed hiring decisions or training plans.',
+      description: 'Identify missing skills and experience gaps to make informed career development decisions and training plans.',
     },
     {
       icon: <FileSearch className="w-6 h-6" />,

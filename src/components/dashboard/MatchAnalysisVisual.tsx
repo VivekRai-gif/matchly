@@ -1,3 +1,14 @@
+/**
+ * Match Analysis Visual Component
+ * 
+ * Displays comprehensive candidate-job match analysis with:
+ * - Circular progress indicators
+ * - Score breakdowns by category
+ * - Visual recommendations
+ * - Color-coded performance metrics
+ * 
+ * @component
+ */
 import React from 'react';
 import { CheckCircle, XCircle, AlertCircle, TrendingUp, Brain, Briefcase, GraduationCap, FolderOpen, Users, Target } from 'lucide-react';
 
@@ -15,8 +26,19 @@ interface MatchAnalysisProps {
   };
 }
 
+interface ScoreColor {
+  bg: string;
+  text: string;
+  border: string;
+}
+
 export const MatchAnalysisVisual: React.FC<MatchAnalysisProps> = ({ matchData }) => {
-  const getScoreColor = (score: number) => {
+  /**
+   * Determines color scheme based on score thresholds
+   * @param score - Numeric score (0-100)
+   * @returns Color configuration object
+   */
+  const getScoreColor = (score: number): ScoreColor => {
     if (score >= 70) return { bg: 'from-green-500 to-emerald-500', text: 'text-green-400', border: 'border-green-500' };
     if (score >= 50) return { bg: 'from-yellow-500 to-orange-500', text: 'text-yellow-400', border: 'border-yellow-500' };
     return { bg: 'from-red-500 to-pink-500', text: 'text-red-400', border: 'border-red-500' };

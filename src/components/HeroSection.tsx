@@ -62,8 +62,8 @@ export const HeroSection = () => {
           transition={{ duration: 1, delay: 0.4 }}
           className="text-7xl md:text-8xl lg:text-9xl font-bold mb-6 leading-none"
         >
-          <span className="block">Hiring,</span>
-          <span className="block text-gradient glow-text">Reimagined</span>
+          <span className="block">Your Career,</span>
+          <span className="block text-gradient glow-text">Supercharged</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -73,9 +73,9 @@ export const HeroSection = () => {
           transition={{ duration: 1, delay: 0.6 }}
           className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          The world's first multi-agent ethical hiring engine.
+          Your personal AI career intelligence platform.
           <br />
-          Transparent matching. Zero bias. Pure intelligence.
+          Smart insights. Zero bias. Your success amplified.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -87,7 +87,7 @@ export const HeroSection = () => {
         >
           <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full font-semibold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50">
             <span className="relative z-10 flex items-center gap-2">
-              Experience Fair Hiring
+              Start Your Career Journey
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />

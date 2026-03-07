@@ -46,7 +46,7 @@ export const EmailCampaigns = () => {
         campaign_name: 'Recruitment Campaign - ' + new Date().toLocaleDateString(),
         template_id: 'candidate_outreach',
         subject: 'Exciting Opportunity - We Found Your Profile!',
-        sender_name: 'Recruiter',
+        sender_name: 'Job Seeker',
         sender_email: senderEmail,
         receiver_email: receiverEmail,
         personalization_enabled: true,
@@ -119,7 +119,7 @@ export const EmailCampaigns = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: 'Smart Templates',
-      description: 'Pre-built, customizable email templates for every stage of the hiring process.',
+      description: 'Pre-built, customizable email templates for every stage of the job application process.',
     },
     {
       icon: <Send className="w-6 h-6" />,
@@ -194,7 +194,7 @@ export const EmailCampaigns = () => {
             
             <p className="text-xl text-gray-400 max-w-3xl leading-relaxed mb-8">
               Streamline your candidate communication with intelligent automation. Send personalized emails, 
-              schedule interviews, and keep candidates engaged throughout the hiring process.
+              submit applications, and stay engaged with employers throughout your job search.
             </p>
 
             {message && (

@@ -25,8 +25,19 @@ class BiasDetector:
         ]
     
     def mask_personal_info(self, resume_text: str) -> Dict:
-        """Mask personal/demographic information from resume"""
+        """Mask personal/demographic information from resume.
+        
+        Args:
+            resume_text: Raw resume text content
+            
+        Returns:
+            Dictionary with masked text and list of masked items
+            
+        Raises:
+            Exception: If masking operation fails
+        """
         try:
+            # Initialize masked text with original content
             masked_text = resume_text
             masked_items = []
             

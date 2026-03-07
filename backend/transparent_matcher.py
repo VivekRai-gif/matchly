@@ -1,32 +1,68 @@
 """
 Transparent Matching Module
-Provides explainable AI matching with detailed reasoning
+
+Provides explainable AI matching with detailed reasoning and transparency.
+Ensures candidates understand exactly why they match or don't match a role.
 """
 
-import google.generativeai as genai
 import json
-from typing import Dict, List
+import logging
 from datetime import datetime
+from typing import Dict, List, Optional
+
+import google.generativeai as genai
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 
 class TransparentMatcher:
-    """Transparent and explainable candidate-job matching"""
+    """Transparent and explainable candidate-job matching.
+    
+    Provides detailed scoring breakdowns, reasoning for decisions,
+    and actionable feedback for both candidates and recruiters.
+    """
     
     def __init__(self, gemini_api_key: str):
-        genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        """Initialize TransparentMatcher with Gemini AI.
+        
+        Args:
+            gemini_api_key: Google Gemini API key for AI operations
+        """
+        try:
+            genai.configure(api_key=gemini_api_key)
+            self.model = genai.GenerativeModel('gemini-2.5-flash')
+            logger.info("TransparentMatcher initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize TransparentMatcher: {e}")
+            raise
     
     def match_with_explanation(self, resume_text: str, job_description: str) -> Dict:
-        """Match candidate to job with full transparency and reasoning"""
+        """Match candidate to job with full transparency and reasoning.
+        
+        Args:
+            resume_text: Candidate's resume content
+            job_description: Job posting requirements
+            
+        Returns:
+            Comprehensive match analysis with scores and explanations
+            
+        Raises:
+            Exception: If matching operation fails
+        """
         try:
+            # Limit text length to prevent token overflow
+            max_job_chars = 2500
+            max_resume_chars = 4000
+            
             prompt = f"""Perform a transparent and explainable matching between this candidate and job.
 Provide detailed reasoning for EVERY decision and score.
 
 JOB DESCRIPTION:
-{job_description[:2500]}
+{job_description[:max_job_chars]}
 
 CANDIDATE RESUME:
-{resume_text[:4000]}
+{resume_text[:max_resume_chars]}
 
 Return a detailed JSON with complete transparency:
 {{

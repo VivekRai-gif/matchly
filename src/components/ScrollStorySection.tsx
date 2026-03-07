@@ -85,45 +85,45 @@ export const ScrollStorySection = () => {
     {
       icon: <AlertTriangle className="w-8 h-8 text-white" />,
       badge: 'The Problem',
-      title: 'Algorithmic Bias is Real',
+      title: 'Job Search is Broken',
       description:
-        '78% of AI hiring systems show measurable bias based on name, gender, or background. Traditional ATS software rejects qualified candidates before a human ever sees them. The problem isn\'t automation—it\'s opacity.',
+        'Black-box ATS systems reject 75% of qualified candidates before humans review them. Resumes disappear into voids. You never know why you didn\'t get an interview. The problem isn\'t your skills—it\'s invisible barriers.',
       stats: [
-        { label: 'Biased Systems', value: '78%' },
-        { label: 'Hidden Rejections', value: '60%' },
+        { label: 'ATS Rejections', value: '75%' },
+        { label: 'No Feedback', value: '90%' },
       ],
     },
     {
       icon: <Brain className="w-8 h-8 text-white" />,
       badge: 'The Solution',
-      title: 'Multi-Agent Intelligence',
+      title: 'Your AI Career Team',
       description:
-        'Scoutify AI uses four specialized agents working together: Resume Parser extracts skills, Matcher finds relevance, Bias Detector audits decisions, and Synthesizer explains rankings. Every decision is traceable.',
+        'matchly uses four specialized AI agents working for you: Resume Analyzer extracts your strengths, Matcher finds opportunities, Bias Detector flags unfair listings, and Email Crafter personalizes your outreach. Every insight helps you compete.',
       stats: [
         { label: 'AI Agents', value: '4' },
-        { label: 'Decision Points', value: '100%' },
+        { label: 'For You', value: '100%' },
       ],
     },
     {
       icon: <Eye className="w-8 h-8 text-white" />,
       badge: 'Transparency',
-      title: 'See Every Decision',
+      title: 'Know Where You Stand',
       description:
-        'Unlike black-box systems, Scoutify shows you exactly why each candidate was ranked. Semantic matching goes beyond keywords. Every skill, experience, and qualification is mapped and explained in plain language.',
+        'Get clear explanations for every match score. See exactly which skills you have, which you need, and how to improve. Semantic analysis goes beyond keywords to show your transferable skills. No more guessing games.',
       stats: [
-        { label: 'Transparency', value: '100%' },
-        { label: 'Explainability', value: 'Full' },
+        { label: 'Match Clarity', value: '100%' },
+        { label: 'Skill Insights', value: 'Full' },
       ],
     },
     {
       icon: <Shield className="w-8 h-8 text-white" />,
-      badge: 'Privacy First',
-      title: 'Ethical by Design',
+      badge: 'Your Privacy',
+      title: 'Designed for Protection',
       description:
-        'Data never leaves your infrastructure. No vendor lock-in. No training on your candidates. The bias audit agent actively flags potential discrimination and suggests corrections. Fair hiring isn\'t optional.',
+        'Your resume data stays with you. No selling to recruiters. No tracking. The safety agent actively flags suspicious job postings and scams. Your career, your control. Privacy isn\'t optional.',
       stats: [
         { label: 'Data Privacy', value: '100%' },
-        { label: 'Bias Detection', value: 'Active' },
+        { label: 'Scam Detection', value: 'Active' },
       ],
     },
   ];
@@ -146,10 +146,10 @@ export const ScrollStorySection = () => {
           className="text-center mb-20"
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            The Future of <span className="text-gradient">Ethical Hiring</span>
+            The Future of <span className="text-gradient">Career Intelligence</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            A new paradigm where AI doesn't replace human judgment—it empowers it.
+            AI that doesn't replace your potential—it reveals and amplifies it.
           </p>
         </motion.div>
 

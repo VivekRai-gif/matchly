@@ -72,7 +72,7 @@ export const ComingSoon = () => {
           transition={{ delay: 0.7, duration: 0.8 }}
           className="text-gray-500 mb-12 max-w-2xl mx-auto"
         >
-          This page is currently under development. Stay tuned for exciting updates and new features that will revolutionize your hiring process.
+          This page is currently under development. Stay tuned for exciting updates and new features that will revolutionize your job search.
         </motion.p>
 
         {/* CTA Buttons */}

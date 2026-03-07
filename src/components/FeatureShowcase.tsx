@@ -97,38 +97,38 @@ export const FeatureShowcase = () => {
   const features = [
     {
       icon: <FileSearch className="w-7 h-7 text-white" />,
-      title: 'Intelligent Resume Parsing',
-      description: 'Extracts skills, experience, and qualifications with context-aware AI. No manual tagging required.',
+      title: 'Intelligent Resume Analysis',
+      description: 'AI extracts and analyzes your skills, experience, and qualifications with context-aware precision.',
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
       icon: <Zap className="w-7 h-7 text-white" />,
-      title: 'Semantic Skill Matching',
-      description: 'Goes beyond keyword matching. Understands synonyms, related skills, and industry context.',
+      title: 'Smart Job Matching',
+      description: 'Goes beyond keyword matching. Understands your transferable skills, related experience, and industry context.',
       gradient: 'from-purple-500 to-pink-500',
     },
     {
       icon: <Target className="w-7 h-7 text-white" />,
-      title: 'Real-Time Bias Detection',
-      description: 'Actively scans for discrimination patterns and flags potential issues before they impact decisions.',
+      title: 'Fair Opportunity Detection',
+      description: 'Evaluates job postings for bias indicators and helps you identify truly merit-based opportunities.',
       gradient: 'from-orange-500 to-red-500',
     },
     {
       icon: <CheckCircle className="w-7 h-7 text-white" />,
-      title: 'Explainable Rankings',
-      description: 'Every candidate score comes with clear reasoning. No black-box decisions.',
+      title: 'Clear Match Insights',
+      description: 'Every match score comes with detailed reasoning showing exactly where you excel and where to improve.',
       gradient: 'from-green-500 to-emerald-500',
     },
     {
       icon: <BarChart3 className="w-7 h-7 text-white" />,
-      title: 'Fairness Analytics',
-      description: 'Track diversity metrics, bias trends, and hiring patterns over time with interactive dashboards.',
+      title: 'Career Progress Tracking',
+      description: 'Track your skill development, application patterns, and job search performance with interactive dashboards.',
       gradient: 'from-cyan-500 to-blue-500',
     },
     {
       icon: <Lock className="w-7 h-7 text-white" />,
       title: 'Privacy-Preserving Design',
-      description: 'Your candidate data never leaves your infrastructure. Full control and compliance guaranteed.',
+      description: 'Your resume data never leaves your control. Full privacy protection and data security guaranteed.',
       gradient: 'from-indigo-500 to-purple-500',
     },
   ];
@@ -157,10 +157,10 @@ export const FeatureShowcase = () => {
             Features
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            Built for <span className="text-gradient">Precision & Trust</span>
+            Built for <span className="text-gradient">Your Success</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Every feature designed to eliminate bias and maximize fairness
+            Every feature designed to accelerate your career and showcase your true potential
           </p>
         </motion.div>
 

@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/candidate-intelligence" element={<CandidateIntelligence />} />
-        <Route path="/features/recruiter-dashboard" element={<RecruiterDashboard />} />
+        <Route path="/features/application-tracker" element={<RecruiterDashboard />} />
         <Route path="/features/resume-matching" element={<ResumeMatching />} />
         <Route path="/features/ats-compatibility" element={<ATSCompatibility />} />
         <Route path="/features/email-campaigns" element={<EmailCampaigns />} />

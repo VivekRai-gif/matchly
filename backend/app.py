@@ -1,5 +1,18 @@
+"""Flask API for AI-Powered Recruitment Platform
+
+Provides endpoints for ATS analysis, skill verification, bias detection,
+transparent matching, and more using Google's Gemini AI.
+"""
+
+import os
+import logging
+from datetime import datetime
+from typing import Dict, Any
+
+import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+
 from ats_analyzer import ATSAnalyzer
 from skill_verifier import SkillVerifier
 from bias_detector import BiasDetector
@@ -7,39 +20,53 @@ from transparent_matcher import TransparentMatcher
 from privacy_handler import PrivacyHandler
 from job_authenticity_verifier import JobAuthenticityVerifier
 from email_crafter import EmailCrafter
-from datetime import datetime
-import os
-import requests
+from validation_agent import InputValidationAgent, ValidationResult
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# Initialize Flask app
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
-# Gemini API Key
-GEMINI_API_KEY = "AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q"
+# Gemini API Key - Use environment variable in production
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', "AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")
 
-# Initialize all services with Gemini AI (Candidate-Focused Multi-Agent System)
-ats_analyzer = ATSAnalyzer(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")
-skill_verifier = SkillVerifier(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Resume Intelligence Agent
-bias_detector = BiasDetector(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Bias Detection Agent
-transparent_matcher = TransparentMatcher(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Skill Match & Gap Agent
-privacy_handler = PrivacyHandler()
-job_verifier = JobAuthenticityVerifier(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Job Authenticity Agent
-email_crafter = EmailCrafter(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Email Crafting Agent
+# Initialize all AI-powered services (Candidate-Focused Multi-Agent System)
+try:
+    ats_analyzer = ATSAnalyzer(gemini_api_key=GEMINI_API_KEY)
+    skill_verifier = SkillVerifier(gemini_api_key=GEMINI_API_KEY)
+    bias_detector = BiasDetector(gemini_api_key=GEMINI_API_KEY)
+    transparent_matcher = TransparentMatcher(gemini_api_key=GEMINI_API_KEY)
+    privacy_handler = PrivacyHandler()
+    job_verifier = JobAuthenticityVerifier(gemini_api_key=GEMINI_API_KEY)
+    email_crafter = EmailCrafter(gemini_api_key=GEMINI_API_KEY)
+    validation_agent = InputValidationAgent()
+    logger.info("All AI services initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize AI services: {str(e)}")
+    raise
 
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    """Health check endpoint"""
-    return jsonify({'status': 'healthy', 'message': 'ATS Analyzer API is running'})
 
-@app.route('/api/analyze-ats', methods=['POST'])
-def analyze_ats():
-    """Analyze resume for ATS compatibility"""
-    try:
+# ==================== VALIDATION DECORATORS ====================
+
+from functools import wraps
+import tempfile
+
+def validate_file_upload(f):
+    """Decorator to validate file uploads using InputValidationAgent"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
         # Check if file is present
         if 'resume' not in request.files:
             return jsonify({
                 'success': False,
-                'error': 'No resume file provided'
+                'error': 'No resume file provided',
+                'validation_details': None
             }), 400
         
         resume_file = request.files['resume']
@@ -48,10 +75,298 @@ def analyze_ats():
         if resume_file.filename == '':
             return jsonify({
                 'success': False,
-                'error': 'No file selected'
+                'error': 'No file selected',
+                'validation_details': None
             }), 400
         
-        # Get job description (optional)
+        # Save file temporarily for validation
+        try:
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                resume_file.save(temp_file.name)
+                file_size = temp_file.tell()
+                
+                # Validate file using validation agent
+                validation_result = validation_agent.validate_file(
+                    file_path=temp_file.name,
+                    file_size=file_size,
+                    filename=resume_file.filename
+                )
+                
+                # Clean up
+                import os
+                os.unlink(temp_file.name)
+                
+                # If validation failed, return error
+                if not validation_result.is_valid:
+                    logger.warning(f"File validation failed: {validation_result.errors}")
+                    return jsonify({
+                        'success': False,
+                        'error': 'File validation failed',
+                        'validation_result': validation_result.to_dict()
+                    }), 400
+                
+                # Log warnings if any
+                if validation_result.warnings:
+                    logger.warning(f"File validation warnings: {validation_result.warnings}")
+                
+                # Reset file pointer for endpoint to use
+                resume_file.seek(0)
+                
+                # Store validation result in request context for endpoint to access
+                request.validation_result = validation_result
+                
+        except Exception as e:
+            logger.error(f"Error during file validation: {str(e)}")
+            return jsonify({
+                'success': False,
+                'error': f'Validation error: {str(e)}'
+            }), 500
+        
+        return f(*args, **kwargs)
+    
+    return decorated_function
+
+
+def validate_text_input(field_name='text'):
+    """Decorator to validate text inputs using InputValidationAgent"""
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            # Get JSON data
+            data = request.get_json()
+            
+            if not data or field_name not in data:
+                return jsonify({
+                    'success': False,
+                    'error': f'Missing {field_name}',
+                    'validation_details': None
+                }), 400
+            
+            text = data[field_name]
+            
+            # Validate text using validation agent
+            validation_result = validation_agent.validate_text(text, field_name)
+            
+            # If validation failed, return error
+            if not validation_result.is_valid:
+                logger.warning(f"Text validation failed for {field_name}: {validation_result.errors}")
+                return jsonify({
+                    'success': False,
+                    'error': f'{field_name} validation failed',
+                    'validation_result': validation_result.to_dict()
+                }), 400
+            
+            # Log warnings if any
+            if validation_result.warnings:
+                logger.warning(f"Text validation warnings for {field_name}: {validation_result.warnings}")
+            
+            # Store validation result in request context
+            if not hasattr(request, 'validation_results'):
+                request.validation_results = {}
+            request.validation_results[field_name] = validation_result
+            
+            return f(*args, **kwargs)
+        
+        return decorated_function
+    return decorator
+
+
+def validate_job_description(f):
+    """Decorator to validate job description content"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Get job description from form or JSON
+        job_description = None
+        if request.is_json:
+            data = request.get_json()
+            job_description = data.get('job_description') or data.get('jobDescription')
+        else:
+            job_description = request.form.get('jobDescription') or request.form.get('job_description')
+        
+        if not job_description:
+            return jsonify({
+                'success': False,
+                'error': 'Job description is required'
+            }), 400
+        
+        # Validate job description
+        validation_result = validation_agent.validate_job_description(job_description)
+        
+        # If validation has errors, return error
+        if not validation_result.is_valid:
+            logger.warning(f"Job description validation failed: {validation_result.errors}")
+            return jsonify({
+                'success': False,
+                'error': 'Job description validation failed',
+                'validation_result': validation_result.to_dict()
+            }), 400
+        
+        # Log warnings if any
+        if validation_result.warnings:
+            logger.info(f"Job description validation warnings: {validation_result.warnings}")
+        
+        # Store validation result
+        if not hasattr(request, 'validation_results'):
+            request.validation_results = {}
+        request.validation_results['job_description'] = validation_result
+        
+        return f(*args, **kwargs)
+    
+    return decorated_function
+
+@app.route('/api/health', methods=['GET'])
+def health_check() -> Dict[str, Any]:
+    """Health check endpoint to verify API status.
+    
+    Returns:
+        JSON response with status and timestamp
+    """
+    return jsonify({
+        'status': 'healthy',
+        'message': 'ATS Analyzer API is running',
+        'timestamp': datetime.utcnow().isoformat(),
+        'version': '1.0.0',
+        'validation_agent': 'enabled'
+    })
+
+
+# ==================== VALIDATION TESTING ENDPOINTS ====================
+
+@app.route('/api/validate/file', methods=['POST'])
+def validate_file_endpoint():
+    """Test endpoint to validate file uploads
+    
+    Returns detailed validation results with all checkpoints
+    """
+    try:
+        if 'file' not in request.files:
+            return jsonify({'success': False, 'error': 'No file provided'}), 400
+        
+        file = request.files['file']
+        
+        if file.filename == '':
+            return jsonify({'success': False, 'error': 'No file selected'}), 400
+        
+        # Save file temporarily for validation
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            file.save(temp_file.name)
+            file_size = temp_file.tell()
+            
+            # Validate file
+            validation_result = validation_agent.validate_file(
+                file_path=temp_file.name,
+                file_size=file_size,
+                filename=file.filename
+            )
+            
+            # Clean up
+            import os
+            os.unlink(temp_file.name)
+            
+            return jsonify({
+                'success': True,
+                'validation_result': validation_result.to_dict(),
+                'message': 'File validation complete'
+            })
+    
+    except Exception as e:
+        logger.error(f"Error in file validation endpoint: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/validate/text', methods=['POST'])
+def validate_text_endpoint():
+    """Test endpoint to validate text input
+    
+    Returns detailed validation results with all checkpoints
+    """
+    try:
+        data = request.get_json()
+        
+        if not data or 'text' not in data:
+            return jsonify({'success': False, 'error': 'Missing text field'}), 400
+        
+        text = data['text']
+        field_name = data.get('field_name', 'text')
+        
+        # Validate text
+        validation_result = validation_agent.validate_text(text, field_name)
+        
+        return jsonify({
+            'success': True,
+            'validation_result': validation_result.to_dict(),
+            'message': 'Text validation complete'
+        })
+    
+    except Exception as e:
+        logger.error(f"Error in text validation endpoint: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/validate/resume', methods=['POST'])
+def validate_resume_endpoint():
+    """Test endpoint to validate resume content
+    
+    Returns detailed validation with resume-specific checks
+    """
+    try:
+        data = request.get_json()
+        
+        if not data or 'resume_text' not in data:
+            return jsonify({'success': False, 'error': 'Missing resume_text'}), 400
+        
+        resume_text = data['resume_text']
+        
+        # Validate resume
+        validation_result = validation_agent.validate_resume(resume_text)
+        
+        return jsonify({
+            'success': True,
+            'validation_result': validation_result.to_dict(),
+            'message': 'Resume validation complete'
+        })
+    
+    except Exception as e:
+        logger.error(f"Error in resume validation endpoint: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/validate/job', methods=['POST'])
+def validate_job_endpoint():
+    """Test endpoint to validate job description
+    
+    Returns detailed validation with job-specific checks
+    """
+    try:
+        data = request.get_json()
+        
+        if not data or 'job_description' not in data:
+            return jsonify({'success': False, 'error': 'Missing job_description'}), 400
+        
+        job_description = data['job_description']
+        
+        # Validate job description
+        validation_result = validation_agent.validate_job_description(job_description)
+        
+        return jsonify({
+            'success': True,
+            'validation_result': validation_result.to_dict(),
+            'message': 'Job description validation complete'
+        })
+    
+    except Exception as e:
+        logger.error(f"Error in job validation endpoint: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+# ==================== END VALIDATION ENDPOINTS ====================
+
+@app.route('/api/analyze-ats', methods=['POST'])
+@validate_file_upload
+def analyze_ats():
+    """Analyze resume for ATS compatibility with input validation"""
+    try:
+        resume_file = request.files['resume']
         job_description = request.form.get('jobDescription', '')
         
         # Read file content
@@ -60,6 +375,11 @@ def analyze_ats():
         
         # Perform analysis
         result = ats_analyzer.analyze(file_content, filename, job_description)
+        
+        # Add validation info to response
+        if hasattr(request, 'validation_result'):
+            result['validation_score'] = request.validation_result.overall_score
+            result['validation_warnings'] = request.validation_result.warnings
         
         return jsonify(result)
     
@@ -246,17 +566,13 @@ def fair_evaluation():
 
 # 3️⃣ TRANSPARENT MATCHING
 @app.route('/api/match/transparent', methods=['POST'])
+@validate_file_upload
+@validate_job_description
 def transparent_match():
-    """Perform transparent matching with full explanation"""
+    """Perform transparent matching with full explanation and validation"""
     try:
-        if 'resume' not in request.files:
-            return jsonify({'success': False, 'error': 'No resume file provided'}), 400
-        
         resume_file = request.files['resume']
         job_description = request.form.get('jobDescription', '')
-        
-        if not job_description:
-            return jsonify({'success': False, 'error': 'Job description is required'}), 400
         
         file_content = resume_file.read()
         filename = resume_file.filename
@@ -266,6 +582,13 @@ def transparent_match():
         
         # Transparent matching
         result = transparent_matcher.match_with_explanation(resume_text, job_description)
+        
+        # Add validation scores
+        if hasattr(request, 'validation_results'):
+            result['validation_scores'] = {
+                'file_validation': request.validation_result.overall_score if hasattr(request, 'validation_result') else None,
+                'job_validation': request.validation_results.get('job_description', {}).overall_score if 'job_description' in request.validation_results else None
+            }
         
         return jsonify(result)
     
@@ -505,13 +828,11 @@ def start_campaign():
 
 # 5️⃣ JOB AUTHENTICITY VERIFICATION
 @app.route('/api/job/verify-authenticity', methods=['POST'])
+@validate_text_input('job_description')
 def verify_job_authenticity():
-    """Verify authenticity of a job posting"""
+    """Verify authenticity of a job posting with input validation"""
     try:
         data = request.get_json()
-        
-        if not data or 'job_description' not in data:
-            return jsonify({'success': False, 'error': 'Missing job_description'}), 400
         
         job_description = data['job_description']
         company_name = data.get('company_name', None)
@@ -519,6 +840,10 @@ def verify_job_authenticity():
         
         # Verify job authenticity
         result = job_verifier.verify_job_posting(job_description, company_name, salary_info)
+        
+        # Add validation score
+        if hasattr(request, 'validation_results') and 'job_description' in request.validation_results:
+            result['input_validation_score'] = request.validation_results['job_description'].overall_score
         
         return jsonify(result)
     

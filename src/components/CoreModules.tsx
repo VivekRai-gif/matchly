@@ -27,8 +27,8 @@ export const CoreModules = () => {
     {
       icon: <Users className="w-8 h-8" />,
       iconColor: 'from-warning-10 to-warning-20',
-      title: 'Recruiter Ranking & Shortlisted List',
-      description: 'Intelligent ranking dashboard for recruiters. View top candidates, manage shortlists, and track hiring pipeline with real-time analytics.',
+      title: 'Career Insights & Application Tracking',
+      description: 'Intelligent insights dashboard for job seekers. Track your applications, view match scores, manage opportunities, and monitor your job search progress with real-time analytics.',
       buttonText: 'Learn More',
     },
   ];
@@ -48,7 +48,7 @@ export const CoreModules = () => {
             Core Intelligence <span className="text-gradient">Modules</span>
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed">
-            Built for precision, trust, and ethical hiring
+            Built for precision, trust, and career success
           </p>
         </motion.div>
 

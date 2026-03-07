@@ -1,14 +1,32 @@
+"""ATS Resume Analyzer Module
+
+Analyzes resume compatibility with Applicant Tracking Systems (ATS)
+using Google's Gemini AI for intelligent parsing and scoring.
+"""
+
+import io
+import logging
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
+
 import PyPDF2
 from docx import Document
-import io
 import google.generativeai as genai
 
+# Configure logging
+logger = logging.getLogger(__name__)
+
+
 class ATSAnalyzer:
-    """Analyze resume ATS compatibility using Gemini AI"""
+    """Analyze resume ATS compatibility using Gemini AI.
     
-    def __init__(self, gemini_api_key: str = None):
+    Attributes:
+        standard_sections (List[str]): Common ATS-friendly resume sections
+        supported_formats (List[str]): Supported file formats for analysis
+        model: Gemini AI generative model instance
+    """
+    
+    def __init__(self, gemini_api_key: Optional[str] = None):
         # Common ATS-friendly sections
         self.standard_sections = [
             'contact', 'summary', 'experience', 'education', 
@@ -26,16 +44,32 @@ class ATSAnalyzer:
             self.model = None
         
     def extract_text_from_pdf(self, file_content: bytes) -> str:
-        """Extract text from PDF file"""
+        """Extract text content from PDF file.
+        
+        Args:
+            file_content: Binary content of PDF file
+            
+        Returns:
+            Extracted text as string
+            
+        Raises:
+            Exception: If PDF extraction fails
+        """
         try:
             pdf_file = io.BytesIO(file_content)
             pdf_reader = PyPDF2.PdfReader(pdf_file)
-            text = ""
-            for page in pdf_reader.pages:
-                text += page.extract_text()
-            return text
+            
+            text_content = ""
+            for page_num, page in enumerate(pdf_reader.pages):
+                try:
+                    text_content += page.extract_text() + "\n"
+                except Exception as page_error:
+                    logger.warning(f"Failed to extract text from page {page_num}: {page_error}")
+                    
+            return text_content.strip()
         except Exception as e:
-            return f"Error extracting PDF: {str(e)}"
+            logger.error(f"Error extracting PDF: {str(e)}")
+            raise Exception(f"PDF extraction failed: {str(e)}")
     
     def extract_text_from_docx(self, file_content: bytes) -> str:
         """Extract text from DOCX file"""

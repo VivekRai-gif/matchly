@@ -6,7 +6,7 @@ export const AboutSection = () => {
     {
       icon: <Heart className="w-6 h-6" />,
       title: 'Ethical AI',
-      description: 'Committed to bias-free, transparent hiring that gives every candidate a fair chance.',
+      description: 'Committed to bias-free, transparent job matching that gives you a fair chance at every opportunity.',
       color: 'from-danger-10 to-danger-20',
     },
     {
@@ -18,39 +18,39 @@ export const AboutSection = () => {
     {
       icon: <Zap className="w-6 h-6" />,
       title: 'Innovation',
-      description: 'Constantly evolving our AI to stay ahead of hiring challenges and industry needs.',
+      description: 'Constantly evolving our AI to stay ahead of job market challenges and career development needs.',
       color: 'from-warning-10 to-warning-20',
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: 'Human-Centered',
-      description: 'Technology that empowers people, not replaces them. AI that enhances human judgment.',
+      description: 'Technology that empowers your career journey, not replaces your unique value. AI that enhances your strengths.',
       color: 'from-primary-10 to-primary-30',
     },
   ];
 
   const stats = [
-    { icon: <Globe className="w-8 h-8" />, value: '50+', label: 'Countries Served' },
-    { icon: <Users className="w-8 h-8" />, value: '500+', label: 'Enterprise Clients' },
-    { icon: <Award className="w-8 h-8" />, value: '10M+', label: 'Resumes Processed' },
-    { icon: <TrendingUp className="w-8 h-8" />, value: '98%', label: 'Success Rate' },
+    { icon: <Globe className="w-8 h-8" />, value: '150+', label: 'Countries Served' },
+    { icon: <Users className="w-8 h-8" />, value: '50K+', label: 'Job Seekers Helped' },
+    { icon: <Award className="w-8 h-8" />, value: '500K+', label: 'Resumes Analyzed' },
+    { icon: <TrendingUp className="w-8 h-8" />, value: '92%', label: 'Success Rate' },
   ];
 
   const team = [
     {
-      role: 'Engineering',
-      members: '50+',
+      role: 'AI Engineering',
+      members: '25+',
       description: 'World-class AI engineers and data scientists',
     },
     {
-      role: 'Product',
-      members: '20+',
-      description: 'Experts in HR tech and user experience',
+      role: 'Product & UX',
+      members: '12+',
+      description: 'Experts in career tech and user experience',
     },
     {
-      role: 'Support',
-      members: '30+',
-      description: 'Dedicated customer success team',
+      role: 'Career Success',
+      members: '15+',
+      description: 'Dedicated career advisors and job search experts',
     },
   ];
 
@@ -89,7 +89,7 @@ export const AboutSection = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight"
           >
-            Transforming Hiring with <span className="text-gradient">Ethical AI</span>
+            Empowering Job Seekers with <span className="text-gradient">Ethical AI</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -98,7 +98,7 @@ export const AboutSection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-gray-400 text-xl max-w-4xl mx-auto leading-relaxed"
           >
-            We're on a mission to make hiring fair, fast, and intelligent. Scoutify AI combines cutting-edge artificial intelligence with a commitment to ethical recruitment, helping companies find the right talent while eliminating bias and inefficiency.
+            We're on a mission to empower job seekers with AI-powered career intelligence. matchly combines cutting-edge artificial intelligence with a commitment to transparency, helping you understand your strengths, bridge skill gaps, and navigate the job market with confidence.
           </motion.p>
         </motion.div>
 
@@ -117,7 +117,7 @@ export const AboutSection = () => {
             <div className="flex-1">
               <h3 className="text-3xl font-bold text-white mb-4">Our Mission</h3>
               <p className="text-gray-300 text-lg leading-relaxed">
-                To revolutionize the recruitment industry by leveraging multi-agent AI systems that eliminate bias, reduce time-to-hire, and ensure every candidate gets a fair opportunity based on their skills and qualifications. We believe in transparent, ethical hiring that benefits both employers and job seekers equally.
+                To revolutionize job seeking by leveraging multi-agent AI systems that provide complete transparency, eliminate uncertainty, and ensure every job seeker gets clear insights into their match with opportunities. We believe in empowering individuals with the intelligence and tools they need to compete fairly in the modern job market.
               </p>
             </div>
           </div>
@@ -226,17 +226,17 @@ export const AboutSection = () => {
           className="glass-strong rounded-3xl p-12 text-center"
         >
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Join the Hiring Revolution
+            Join the Career Revolution
           </h3>
           <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
-            Be part of a movement that's making recruitment fairer, faster, and smarter for everyone.
+            Be part of a movement that's making job search smarter, fairer, and more transparent for everyone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="px-8 py-4 bg-gradient-to-r from-primary-10 to-primary-30 hover:from-primary-30 hover:to-primary-10 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-primary-10/50">
-              Get Started Today
+              Analyze Your Resume
             </button>
             <button className="px-8 py-4 glass hover:glass-strong hover:border-primary-10/40 rounded-full font-semibold text-lg smooth-transition hover:scale-105">
-              Schedule a Demo
+              See How It Works
             </button>
           </div>
         </motion.div>

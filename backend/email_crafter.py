@@ -1,30 +1,62 @@
 """
 Email Crafting Module
-Generates personalized job application emails using AI
+
+Generates personalized job application emails using AI.
+Supports multiple tones, follow-ups, and outreach strategies.
 """
 
-import google.generativeai as genai
 import json
-from typing import Dict, List
+import logging
 from datetime import datetime
+from typing import Dict, List, Optional
+
+import google.generativeai as genai
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 
 class EmailCrafter:
-    """Generate personalized job application emails"""
+    """Generate personalized job application emails.
+    
+    Creates compelling, tailored emails for job applications,
+    follow-ups, LinkedIn messages, and cold outreach.
+    """
     
     def __init__(self, gemini_api_key: str):
-        genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        """Initialize EmailCrafter with Gemini AI.
+        
+        Args:
+            gemini_api_key: Google Gemini API key for AI operations
+        """
+        try:
+            genai.configure(api_key=gemini_api_key)
+            self.model = genai.GenerativeModel('gemini-2.5-flash')
+            logger.info("EmailCrafter initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize EmailCrafter: {e}")
+            raise
     
     def craft_application_email(self, 
                                 resume_data: str, 
                                 job_description: str, 
                                 company_name: str,
-                                hiring_manager_name: str = None,
+                                hiring_manager_name: Optional[str] = None,
                                 tone: str = 'professional') -> Dict:
-        """Generate a personalized application email"""
+        """Generate a personalized application email.
+        
+        Args:
+            resume_data: Candidate's resume information
+            job_description: Target job posting details
+            company_name: Name of the hiring company
+            hiring_manager_name: Optional hiring manager name
+            tone: Email tone (professional, friendly, formal)
+            
+        Returns:
+            Dictionary with generated email content and metadata
+        """
         try:
-            manager_salutation = f"Dear {hiring_manager_name}" if hiring_manager_name else "Dear Hiring Manager"
+            salutation = f"Dear {hiring_manager_name}" if hiring_manager_name else "Dear Hiring Manager"
             
             prompt = f"""Generate a compelling, personalized job application email.
 
@@ -71,7 +103,8 @@ Make it authentic and compelling. Avoid generic templates."""
             # Add metadata
             result['generated_at'] = datetime.now().isoformat()
             result['company_name'] = company_name
-            result['salutation'] = manager_salutation
+            result = {}
+            result['salutation'] = salutation
             
             return {
                 'success': True,

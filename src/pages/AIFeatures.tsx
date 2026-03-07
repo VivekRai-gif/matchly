@@ -421,12 +421,8 @@ const AIFeatures: React.FC = () => {
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <div className="w-2 h-2 bg-primary-10 rounded-full animate-pulse" />
-            <span className="text-sm text-primary-10 font-semibold">Powered by Google Gemini AI</span>
-          </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            AI-Powered <span className="text-gradient">Features</span>
+            Career Intelligence <span className="text-gradient">Features</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Enterprise-Grade Analysis • Transparent AI • Privacy-First
